@@ -15,6 +15,7 @@ def init_temp_repo():
     return GitRepository(dir.name), dir
 
 
+# TODO: Simplify with GitPython GitCmd
 def list_staged_files(repo: GitRepository):
     """List staged files in git."""
     entry_items = repo.repo.index.entries.items()
