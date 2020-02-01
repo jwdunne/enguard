@@ -1,4 +1,6 @@
-# Enguard
+
+Enguard
+=======
 
 Enguard! Your build fails CI. You make a change. Push. You wait for CI,
 taking at minimum two minutes, ignoring queues. Then you think "Why not run
@@ -14,35 +16,36 @@ Enter Enguard. Get rapid feedback by analysing affected files only. Enguard
 installs git hooks and passes a list of changed files to each command, using
 sane (but configurable) ranges for each hook.
 
-## Getting Started
+Getting Started
+---------------
 
 Install:
 
-```bash
-pip install enguard
-```
+.. code-block:: bash
+
+   pip install enguard
 
 In your project, run:
 
-```bash
-enguard init
-```
+.. code-block:: bash
+
+   enguard init
 
 Enguard installs a catch-all git hook and creates a default config file:
 
-```bash
-<insert base config>
-```
+.. code-block:: bash
+
+   <insert base config>
 
 Each hook takes a list of commands to run when triggered. Each command is passed
 a list of files affected by the hook action:
 
-```bash
-<insert example hook configuration>
-```
+.. code-block:: bash
+
+   <insert example hook configuration>
 
 You can configure the default commit ranges and diff parameters too:
 
-```bash
-<insert example commit range config using defaults>
-```
+.. code-block:: bash
+
+   <insert example commit range config using defaults>
