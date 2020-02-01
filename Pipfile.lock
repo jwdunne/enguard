@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ebb196d3bdbe52ad785c90bdb9b859d6865b1b90ea073ce39d09e2d2796a7880"
+            "sha256": "0785bf850008e39c636cda1b02921497ddca253876543d086510d3311c8b60fb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,7 +15,51 @@
             }
         ]
     },
-    "default": {},
+    "default": {
+        "gitdb2": {
+            "hashes": [
+                "sha256:1b6df1433567a51a4a9c1a5a0de977aa351a405cc56d7d35f3388bad1f630350",
+                "sha256:96bbb507d765a7f51eb802554a9cfe194a174582f772e0d89f4e87288c288b7b"
+            ],
+            "version": "==2.0.6"
+        },
+        "gitpython": {
+            "hashes": [
+                "sha256:9c2398ffc3dcb3c40b27324b316f08a4f93ad646d5a6328cafbb871aa79f5e42",
+                "sha256:c155c6a2653593ccb300462f6ef533583a913e17857cfef8fc617c246b6dc245"
+            ],
+            "version": "==3.0.5"
+        },
+        "lizard": {
+            "hashes": [
+                "sha256:21994effc04979e80973ae603f02ada19405a773e3aa55795fa952fbb6c0e894",
+                "sha256:d7295be98d43d79cf4bb8daf0cdcdc2d32a238a3e4981a4adf9a628a8a3a1f9d"
+            ],
+            "version": "==1.17.3"
+        },
+        "pydriller": {
+            "hashes": [
+                "sha256:3993b225e60dec220d7442ac4a8e6d16a736fd924da09a40a1b4950ac5bc2cec",
+                "sha256:a9cb0dcac05bf24bc03de88ceca265ae395792e60fc36ac9830dbea21d810c6f"
+            ],
+            "index": "pypi",
+            "version": "==1.10.1"
+        },
+        "pytz": {
+            "hashes": [
+                "sha256:1c557d7d0e871de1f5ccd5833f60fb2550652da6be2693c1e02300743d21500d",
+                "sha256:b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be"
+            ],
+            "version": "==2019.3"
+        },
+        "smmap2": {
+            "hashes": [
+                "sha256:0555a7bf4df71d1ef4218e4807bbf9b201f910174e6e08af2e138d4e517b4dde",
+                "sha256:29a9ffa0497e7f2be94ca0ed1ca1aa3cd4cf25a1f6b4f5f87f74b46ed91d609a"
+            ],
+            "version": "==2.0.5"
+        }
+    },
     "develop": {
         "alabaster": {
             "hashes": [
