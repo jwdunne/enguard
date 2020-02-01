@@ -38,12 +38,12 @@ Enguard installs a catch-all git hook and creates a default config file:
 
    <insert base config>
 
-Each hook takes a list of commands to run when triggered. Each command is
-passed a list of files affected by the hook action:
+You can list any number of steps for any git hook you need. Using template
+variables, you can give a list of affected files to each command:
 
 .. code-block:: yaml
 
-   TOD: insert example hook configuration
+   TODO: insert example hook configuration
 
 You can test the steps for each hook by running, for example:
 
