@@ -16,7 +16,8 @@ pytest-runner = "==5.1"
 Sphinx = "==1.8.5"
 bandit = "==1.6.2"
 radon = "==4.1.0"
-lettuce = "*"
+lettuce = "==0.2.23"
+flake8-docstrings = "==1.5.0"
 
 [packages]
 
