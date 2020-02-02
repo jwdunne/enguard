@@ -25,12 +25,14 @@ Install:
 .. code-block:: bash
 
    pip install enguard
+   cd ./my-project
+   enguard init
 
-In your project, run:
+You can also specify the working directory:
 
 .. code-block:: bash
 
-   enguard init
+    enguard init --dir=./my-project
 
 Enguard catches all git hook triggers and creates a default config file:
 
