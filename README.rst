@@ -10,11 +10,11 @@ tell you that, your CI must:
 3. Install (hopefully cached) dependencies
 4. Run the linter on all files
 
-But what if there's a way to **stop** you from pushing these errors? A way
-to never forget?
+A frustrating experience. But what if there's a way to **stop** you from
+pushing these errors? A way to never forget?
 
-Enter Enguard. Get rapid feedback by analysing affected files only on any git
-hook. Enguard captures all hooks and passes a list of changed files to each
+Enter Enguard. Get rapid feedback by analysing only the affected files on any
+git hook. Enguard captures all hooks and passes a list of changed files to each
 command, using sane (but configurable) ranges for each hook.
 
 Getting Started
@@ -32,11 +32,22 @@ In your project, run:
 
    enguard init
 
-Enguard installs a catch-all git hook and creates a default config file:
+Enguard catches all git hook triggers and creates a default config file:
 
-.. code-block:: bash
+.. code-block:: yaml
 
-   <insert base config>
+    ---
+
+    hooks:
+        pre-commit:
+            - echo "Add your pre-commit steps here."
+            - echo "Affected files {{ files.affected }}"
+        pre-push:
+            - echo "Add your pre-push steps here."
+            - echo "Affected files {{ files.affected }}"
+        post-merge:
+            - echo "Add your post-merge steps here."
+            - echo "Affected files {{ files.affected }}"
 
 You can list any number of steps for any git hook you need. Using template
 variables, you can give a list of affected files to each command:
