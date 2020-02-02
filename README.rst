@@ -50,11 +50,7 @@ Enguard catches all git hook triggers and creates a default config file:
             - echo "Affected files {{ files.affected }}"
 
 You can list any number of steps for any git hook you need. Using template
-variables, you can give a list of affected files to each command:
-
-.. code-block:: yaml
-
-   TODO: insert example hook configuration
+variables, you can give a list of affected files to each command.
 
 You can test the steps for each hook by running, for example:
 
@@ -66,5 +62,14 @@ You can configure the default commit ranges and diff parameters too:
 
 .. code-block:: yaml
 
-   TODO: insert example commit range config using defaults
+    ---
 
+    hooks:
+        pre-commit:
+            steps:
+                - echo "Add your pre-commit steps here."
+                - echo "Affected files {{ files.affected }}"
+            diff:
+                range: HEAD^
+                args:
+                    staged: False
