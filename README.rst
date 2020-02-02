@@ -32,7 +32,7 @@ You can also specify the working directory:
 
 .. code-block:: bash
 
-    enguard init --dir=./my-project
+    enguard init ./my-project
 
 Enguard catches all git hook triggers and creates a default config file:
 
