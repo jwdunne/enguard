@@ -20,5 +20,7 @@ def test_list_staged_files(repo: GitRepository):
         repo.repo.index.add([staged.name])
         assert staged.name in list_staged_files(repo)
 
-    with NamedTemporaryFile(dir=repo.path, delete=False) as unstaged:
-        assert unstaged.name not in list_staged_files(repo)
+
+def test_list_staged_files_is_empty(repo: GitRepository):
+    """Test list_staged_Files returns empty list if nothing staged."""
+    assert not list_staged_files(repo)

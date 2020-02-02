@@ -1,5 +1,6 @@
 """Experiment with potential solutions."""
 
+from typing import List
 import tempfile
 import os
 import git
@@ -15,9 +16,8 @@ def init_temp_repo():
     return GitRepository(dir.name), dir
 
 
-# TODO: Simplify with GitPython GitCmd
-def list_staged_files(repo: GitRepository):
+def list_staged_files(repo: GitRepository) -> List[str]:
     """List staged files in git."""
-    entry_items = repo.repo.index.entries.items()
-    entries = [path for (path, _) in entry_items]
-    return [os.path.join(repo.path, name) for (name, _) in entries]
+    client = git.cmd.Git(repo.path)
+    filenames = client.diff(name_only=True, staged=True).splitlines()
+    return [os.path.join(repo.path, filename) for filename in filenames]
