@@ -2,11 +2,13 @@
 
 """Tests for `enguard` package."""
 
+import pytest
 from click.testing import CliRunner
 
 from enguard import cli
 
 
+@pytest.mark.acceptance
 def test_command_line_interface():
     """Test the CLI."""
     runner = CliRunner()
@@ -18,11 +20,13 @@ def test_command_line_interface():
     assert '--help  Show this message and exit.' in help_result.output
 
 
+@pytest.mark.acceptance
 def test_init_creates_a_default_config_file():
     """Test init command creates the default config file."""
     pass
 
 
+@pytest.mark.acceptance
 def test_init_installs_git_hooks():
     """Test init command installs a script for all git hooks."""
     pass
