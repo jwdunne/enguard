@@ -2,31 +2,40 @@
 
 """Tests for `enguard` package."""
 
+import os
+
 import pytest
+import yaml
 from click.testing import CliRunner
-
 from enguard import cli
+from enguard.enguard import DEFAULT_CONF
+from enguard.util import get_absolute_repo_path
+from pydriller import GitRepository
 
 
 @pytest.mark.acceptance
-def test_command_line_interface():
-    """Test the CLI."""
-    runner = CliRunner()
-    result = runner.invoke(cli.main)
-    assert result.exit_code == 0
-    assert 'enguard.cli.main' in result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
-
-
-@pytest.mark.acceptance
-def test_init_creates_a_default_config_file():
+def test_init_creates_a_default_config_file(repo: GitRepository):
     """Test init command creates the default config file."""
-    pass
+    os.chdir(repo.path)
+
+    runner = CliRunner()
+    result = runner.invoke(cli.init)
+
+    assert result.exit_code == 0
+    assert 'Created default config file' in result.output
+
+    with open(get_absolute_repo_path(repo, ".enguard.yml")) as f:
+        config = yaml.safe_load(f)
+        assert config == DEFAULT_CONF
 
 
 @pytest.mark.acceptance
 def test_init_installs_git_hooks():
     """Test init command installs a script for all git hooks."""
+    pass
+
+
+@pytest.mark.acceptance
+def test_init_takes_a_path_positional_arg():
+    """Test init uses the positional arg as the path to the repo."""
     pass

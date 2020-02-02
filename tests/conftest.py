@@ -1,12 +1,11 @@
 """Shared test fixtures."""
 
+import shutil
 import pytest
 from enguard.util import init_temp_repo
 
 
 @pytest.fixture
 def repo():
-    """Set up a new git repo."""
-    repo, dir = init_temp_repo()
-    yield repo
-    dir.cleanup()
+    """Set up a new git repo fixture."""
+    return init_temp_repo()
