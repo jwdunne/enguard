@@ -3,15 +3,7 @@
 import pytest
 from pydriller import GitRepository
 from tempfile import NamedTemporaryFile
-from enguard.experiments import init_temp_repo, list_staged_files
-
-
-@pytest.fixture
-def repo():
-    """Set up a new git repo."""
-    repo, dir = init_temp_repo()
-    yield repo
-    dir.cleanup()
+from enguard.experiments import list_staged_files
 
 
 @pytest.mark.integration
