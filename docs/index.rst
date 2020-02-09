@@ -1,5 +1,5 @@
-Welcome to Enguard's documentation!
-======================================
+Enguard!
+========
 
 .. toctree::
    :maxdepth: 2
@@ -8,6 +8,8 @@ Welcome to Enguard's documentation!
    readme
    installation
    usage
+   specs
+   design
    modules
    contributing
    authors
