@@ -34,7 +34,8 @@ You can also specify the working directory:
 
     enguard init ./my-project
 
-Enguard catches all git hook triggers and creates a default config file `.enguard.yml`:
+Enguard catches all git hook triggers and creates a default config file
+`.enguard.yml`:
 
 .. code-block:: yaml
 
