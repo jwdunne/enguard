@@ -70,6 +70,18 @@ Use Cases
       loop's cycle time remains acceptable to the developer.
    #. Monitor and report on the running time of |guards| and their
       constitutient |guards|.
+   #. Use heuristics and analyses to prioritise the fastest route to feedback:
+
+      #. Code that frequently fails guards.
+      #. Bug hotspots.
+      #. Fastest guards.
+
+   #. Support fail-fast so that Enguard stops as soon as it encounters a
+      failing guard, providing fast feedback
+   #. Support running all guards regardless of failures so that the developer
+      can fix all errors at once.
+   #. Support naming guards so it's easy for the developer to identify
+      failures.
 
 #. Developers want to get up and running quickly to minimise impact on their
    day to day.
@@ -111,6 +123,8 @@ Use Cases
 
 #. Developers want to set up Enguard with an existing configuration because Git
    does not version control hooks.
+#. Developers want a smooth exit path so Enguard must uninstall and leave no
+   traces behind without affecting other files.
 
 Roadmap
 =======
@@ -121,14 +135,25 @@ I need this tool on my own projects, including this one. Must-haves are:
 #. Initialising on a configured repository without hooks
 #. Running each guard manually
 #. Git support only
+#. A way to filter affected files so that guards only run on particular files.
+#. Fail-fast **and** find all failings.
 
-This should be enough for a public release, so I can get real user feedback.
+This should be enough for a initial release, so I can get real user feedback.
 But I know I would soon need the following features:
 
+#. Naming guards for easier identification.
 #. Strategy for knowing which tests to run for both python, PHP and JS.
-#. A way to filter affected files so that guards only run on particular files.
 #. Migrating from projects that use Husky.
 #. A watcher for real-time feedback on certain guards.
+#. Priotising for faster feedback.
+#. Limit on max guard running time.
+
+To be a good sport, for full, public release, we would need:
+
+#. Migration *from* existing git hook tools.
+#. Integration *with* existing git hook tools.
+#. Work in tandem *with* existing git hook tools.
+#. Smooth uninstallation with no mess left behind.
 
 Use Case 1
 **********
@@ -138,31 +163,68 @@ against commiting and pushing files containing errors or violations of
 standards.
 
 #. Developer initialises enguard on a version-controlled project.
+
+   #. Enguard could not find a git repo in the specified path.
+
+      #. Report error to the developer.
+      #. Explain next steps.
+      #. Exit with error code.
+
+   #. Enguard finds an existing enguard config file.
+
+      #. Report to developer and continue.
+
+   #. Enguard does not have permission to read or write files in the directory.
+
+      #. Report error to the developer.
+      #. Exit with error code.
+
+   #. Enguard finds existing, non-Enguard git hooks.
+
+      #. Report to developer.
+      #. Append to hook and continue.
+
 #. Developer changes version-controlled files.
 #. Developer attempts to commit changes.
 #. Enguard runs configured precommit guards.
+
+   #. Enguard could not read configuration file.
+   #. Enguard encounters an invalid configuration file.
+   #. Enguard could not run command in specified guard.
+   #. Enguard could not find relevant affected files for a guard.
+   #. Developer attempts to commit a large number of files.
+
 #. Enguard allows the commit given all guards pass.
+
+   #. Enguard encounters a failing guard.
+
 #. Developer pushes changes to a remote repo.
 #. Enguard runs configured prepush guards.
+
+   #. Enguard could not read configuration file.
+   #. Enguard encounters an invalid configuration file.
+   #. Enguard could not run command in specified guard.
+   #. Enguard could not find relevant affected files for a guard.
+   #. Developers attempts to push a large number of files.
+
 #. Enguard allows the push given all guards pass.
+
+   #. Enguard encounters a failing guard.
 
 Terminology
 ===========
 
 .. glossary::
     Commit
-        By **commit**, I mean recording a change to a repository. For example,
-        via ``git commit``.
+        Recording a change to a repository. For example, via ``git commit``.
 
     Push
-        By **push**, I mean pushing one or more commits to a remote repository.
-        For example, via ``git push``.
+        Pushing one or more commits to a remote repository. For example, via ``git push``.
 
     Merge
-        By **merge**, I mean any operation that merges recorded changes from
-        either branches, for example via ``git merge``, or from remote
-        repositories, for example via ``git pull``.
+        Any operation that merges recorded changes from either branches, for
+        example via ``git merge``, or from remote repositories, for example via
+        ``git pull``.
 
     Guard
-        A **guard** is a step or number of steps that must return an exit code
-        of 0 to pass, much like a build.
+        A step or number of steps that must return an exit code of 0 to pass, much like a build.
