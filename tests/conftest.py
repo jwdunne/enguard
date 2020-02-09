@@ -1,6 +1,4 @@
 """Shared test fixtures."""
-
-import shutil
 import pytest
 from enguard.util import init_temp_repo
 

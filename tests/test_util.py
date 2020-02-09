@@ -5,7 +5,6 @@ from unittest.mock import MagicMock
 
 import pytest
 from enguard.util import get_absolute_repo_path, init_temp_repo
-from pydriller import GitRepository
 
 
 @pytest.mark.unit
