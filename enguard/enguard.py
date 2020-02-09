@@ -26,11 +26,8 @@ DEFAULT_CONF = {
 }
 
 
-def init(path=None):
+def init(path=os.curdir):
     """Initialize enguard in a git repository."""
-    if path is None:
-        path = os.curdir
-
     repo = GitRepository(path)
 
     with open(get_absolute_repo_path(repo, CONFIG_FILENAME), 'w+') as f:
