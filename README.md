@@ -2,7 +2,7 @@
 
 Build tight feedback loops. In minutes.
 
-@TODO: Insert 5 minute setup gif
+TODO: Insert 5 minute setup gif
 
 <!-- omit in toc -->
 ## Table of Contents
@@ -99,7 +99,14 @@ def integ_test_python(affected_files):
 def lint_docs(affected_files):
     # Run markdownlint, vale, etc
     ...
+
+@enguard.hook(["pre-push"], glob="**/*.py")
+def enforce_coverage(affected_files):
+    # Run coverage.py, enforcing minimum coverage
+    ...
 ```
+
+TODO: Flesh out example configuration
 
 ### Running actions
 
