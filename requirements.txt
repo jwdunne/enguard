@@ -10,3 +10,5 @@ xenon==0.7.0
 radon==4.1.0
 coverage==4.5.4
 pytest-cov==2.8.1
+yamllint==1.23.0
+pytest-benchmark==3.2.3

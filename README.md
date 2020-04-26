@@ -5,9 +5,11 @@ Build tight feedback loops. In minutes.
 TODO: Insert 5 minute setup gif
 
 <!-- omit in toc -->
+
 ## Table of Contents
 
 - [Enguard](#enguard)
+  - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
   - [Usage](#usage)
     - [Initialise](#initialise)
@@ -66,13 +68,54 @@ enguard init
 git hooks for a project. This command should be run in each local development
 environment.
 
-> **Tip:* Use one command to initialise your project for new developers. This is
+> \*_Tip:_ Use one command to initialise your project for new developers. This is
 > the natural home for `enguard init`
 
 ### Configuration
 
-You can configure your project using enguard's internal DSL. Enguard accepts
-valid Python.
+Configure your project using Enguard's `.enguard.yml` config file:
+
+```yaml
+hooks:
+  ['pre-commit', 'pre-push']:
+    - lint-*
+    - test-*
+  pre-push:
+    - lint
+
+guards:
+  lint-python:
+    hooks: ['pre-commit', 'pre-push'],
+    glob: "**/*.py",
+    steps:
+      - 'echo {{ info.diff }} | flake8 --diff'
+      - 'bandit -r {{ info.affected }}'
+      - 'mypy --incremental'
+      - run: |
+          xenon \
+            --max-absolute B \
+            --max-modules A \
+            --max-average A
+
+  test-python:
+    hooks: ['pre-commit', 'pre-push']
+    glob: "**/*.py"
+    stategy: 'coverage'
+    steps:
+      - 'pytest --cov-config='setup.cfg' --cov='enguard'
+
+  lint-docs:
+    hooks: ['pre-commit', 'pre-push']
+    glob: '**/*.md'
+    steps:
+      - 'yarn run markdownlint {{ info.affected }}'
+
+  lint-config:
+    hooks: ['pre-commit', 'pre-push']
+    glob: '**/*.yml'
+    steps:
+      - 'yamllint {{ info.affected }}'
+```
 
 ```python
 import enguard
@@ -80,29 +123,24 @@ import enguard
 PY_FILES = "**/*.py"
 DOC_FILES = "**/*.md"
 
-@enguard.hook(['pre-commit', 'pre-push'], glob=PY_FILES)
-def lint_python(affected_files):
+@enguard.guard('lint-python', glob=PY_FILES)
+def lint_python(info):
     # Lint affected python files before every push and commit
     ...
 
-@enguard.hook(['pre-commit', 'pre-push'], glob=PY_FILES, strategy="tests")
-def unit_test_python(affected_files):
+@enguard.guard('test-python', glob=PY_FILES, strategy="coverage")
+def test_python(info):
     # Run python unit tests before every commit
     ...
 
-@enguard.hook("pre-push", glob=PY_FILES)
-def integ_test_python(affected_files):
-    # Run python integration tests before every push
-    ...
-
-@enguard.hook(["pre-commit", "pre-push"], glob=DOC_FILES)
-def lint_docs(affected_files):
+@enguard.guard('lint-docs', glob=DOC_FILES)
+def lint_docs(info):
     # Run markdownlint, vale, etc
     ...
 
-@enguard.hook(["pre-push"], glob="**/*.py")
-def enforce_coverage(affected_files):
-    # Run coverage.py, enforcing minimum coverage
+@enguard.guard('lint-config', glob=CONF_FILES)
+def lint_config(info):
+    # Run yamllint
     ...
 ```
 
