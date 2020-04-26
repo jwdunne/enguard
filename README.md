@@ -14,8 +14,10 @@ TODO: Insert 5 minute setup gif
   - [Usage](#usage)
     - [Initialise](#initialise)
     - [Configuration](#configuration)
-    - [Running actions](#running-actions)
+    - [Simulating hooks](#simulating-hooks)
+    - [Running guards](#running-guards)
     - [Watching for changes](#watching-for-changes)
+      - [Notes on Watching](#notes-on-watching)
   - [Why Enguard](#why-enguard)
     - [The Solution](#the-solution)
     - [Real-time Feedback](#real-time-feedback)
@@ -84,6 +86,10 @@ hooks:
     - lint-*
     - fast-test*
 
+watch:
+  - lint-*
+  - rapid-test*
+
 guards:
   lint-python:
     glob: "**/*.py",
@@ -124,22 +130,45 @@ guards:
             -m 'not slow'
 ```
 
-### Running actions
+### Simulating hooks
 
 ```text
-Usage: enguard run hook_name
+Usage: enguard run-hook hook_name
 ```
 
 Example:
 
 ```bash
-$ enguard run pre-commit
+$ enguard run-hook pre-commit
 $ echo "Failed? $?"
 0
 ```
 
-Running `enguard run` with a hook name simulates the actions you have configured
-for the hook. This is the same command that git calls when running hooks.
+Running `enguard run-hook` with a hook name simulates the actions you have
+configured for the hook. This is the same command that git calls when running
+hooks.
+
+### Running guards
+
+```text
+Usage: enguard run-guard guard_name
+
+Options:
+
+    --glob=GLOB          A glob of files this guard operates on
+    --strategy=STRATEGY  Determine affected files using STRATEGY
+```
+
+Example:
+
+```bash
+$ enguard run-guard fast-test-python
+$ echo "Failed? $?"
+0
+```
+
+Running `enguard run-guard` with a guard name runs an individual guard. Options
+are available to override config values.
 
 ### Watching for changes
 
@@ -155,6 +184,14 @@ Example:
 $ enguard watch
 TODO: Work out interface for watch mode
 ```
+
+#### Notes on Watching
+
+As a developer, I'd want feedback at-the-point of use. This implies editor
+integration, e.g with VS Code. So we must provide a way to query collected
+statistics.
+
+I'm going to leave this off the initial release.
 
 ## Why Enguard
 
