@@ -7,7 +7,7 @@ from git import Repo
 from pydriller import GitRepository
 
 
-def init_temp_repo():
+def init_temp_repo() -> GitRepository:
     """Init a temporary git repo."""
     dir = tempfile.mkdtemp()
     Repo.init(dir)
