@@ -77,74 +77,52 @@ Configure your project using Enguard's `.enguard.yml` config file:
 
 ```yaml
 hooks:
-  ['pre-commit', 'pre-push']:
+  pre-commit:
     - lint-*
-    - test-*
+    - rapid-test*
   pre-push:
-    - lint
+    - lint-*
+    - fast-test*
 
 guards:
   lint-python:
-    hooks: ['pre-commit', 'pre-push'],
     glob: "**/*.py",
-    steps:
+    run:
       - 'echo {{ info.diff }} | flake8 --diff'
       - 'bandit -r {{ info.affected }}'
       - 'mypy --incremental'
-      - run: |
-          xenon \
-            --max-absolute B \
-            --max-modules A \
-            --max-average A
-
-  test-python:
-    hooks: ['pre-commit', 'pre-push']
-    glob: "**/*.py"
-    stategy: 'coverage'
-    steps:
-      - 'pytest --cov-config='setup.cfg' --cov='enguard'
+      - run: >
+          xenon
+            --max-absolute 'B'
+            --max-modules 'A'
+            --max-average 'A'
 
   lint-docs:
-    hooks: ['pre-commit', 'pre-push']
     glob: '**/*.md'
-    steps:
-      - 'yarn run markdownlint {{ info.affected }}'
+    run: 'yarn markdownlint {{ info.affected }}'
 
   lint-config:
-    hooks: ['pre-commit', 'pre-push']
     glob: '**/*.yml'
-    steps:
-      - 'yamllint {{ info.affected }}'
+    run: 'yamllint {{ info.affected }}'
+
+  rapid-test-python:
+    glob: "**/*.py"
+    stategy: 'coverage'
+    run: >
+        pytest
+            --cov-config='setup.cfg'
+            --cov='enguard'
+            -m 'not slow'
+
+  fast-test-python:
+    glob: "**/*.py"
+    stategy: 'coverage'
+    run: >
+        pytest
+            --cov-config='setup.cfg'
+            --cov='enguard'
+            -m 'not slow'
 ```
-
-```python
-import enguard
-
-PY_FILES = "**/*.py"
-DOC_FILES = "**/*.md"
-
-@enguard.guard('lint-python', glob=PY_FILES)
-def lint_python(info):
-    # Lint affected python files before every push and commit
-    ...
-
-@enguard.guard('test-python', glob=PY_FILES, strategy="coverage")
-def test_python(info):
-    # Run python unit tests before every commit
-    ...
-
-@enguard.guard('lint-docs', glob=DOC_FILES)
-def lint_docs(info):
-    # Run markdownlint, vale, etc
-    ...
-
-@enguard.guard('lint-config', glob=CONF_FILES)
-def lint_config(info):
-    # Run yamllint
-    ...
-```
-
-TODO: Flesh out example configuration
 
 ### Running actions
 
