@@ -4,9 +4,6 @@ import pytest
 from pydriller import GitRepository
 from tempfile import NamedTemporaryFile
 from enguard.experiments import list_staged_files
-from flake8.api import legacy as flake8
-import subprocess
-from bandit.core import manager as bandit_manager
 
 
 @pytest.mark.fast
