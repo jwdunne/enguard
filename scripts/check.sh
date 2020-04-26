@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-flake8
+set -eu
+
+flake8 enguard
+bandit -r enguard
 mypy enguard
