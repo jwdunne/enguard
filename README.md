@@ -44,7 +44,8 @@ Options:
 Commands:
 
     - init
-    - run
+    - run-hook
+    - run-guard
     - watch
 ```
 
