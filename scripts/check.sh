@@ -12,4 +12,4 @@ xenon --max-absolute B --max-modules A --max-average A enguard
 yarn markdownlint '*.md'
 
 # Config
-yamllint *.yml
+yamllint .
