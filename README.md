@@ -1,27 +1,23 @@
-# Enguard
+# Enguard <!-- omit in toc -->
 
 Build tight feedback loops. In minutes.
 
 TODO: Insert 5 minute setup gif
 
-<!-- omit in toc -->
+## Table of Contents <!-- omit in toc -->
 
-## Table of Contents
-
-- [Enguard](#enguard)
-  - [Table of Contents](#table-of-contents)
-  - [Getting Started](#getting-started)
-  - [Usage](#usage)
-    - [Initialise](#initialise)
-    - [Configuration](#configuration)
-    - [Simulating hooks](#simulating-hooks)
-    - [Running guards](#running-guards)
-    - [Watching for changes](#watching-for-changes)
-      - [Notes on Watching](#notes-on-watching)
-  - [Why Enguard](#why-enguard)
-    - [The Solution](#the-solution)
-    - [Real-time Feedback](#real-time-feedback)
-    - [Stopping Common Build Failures](#stopping-common-build-failures)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+  - [Initialise](#initialise)
+  - [Configuration](#configuration)
+  - [Simulating hooks](#simulating-hooks)
+  - [Running guards](#running-guards)
+  - [Watching for changes](#watching-for-changes)
+    - [Notes on Watching](#notes-on-watching)
+- [Why Enguard](#why-enguard)
+  - [The Solution](#the-solution)
+  - [Real-time Feedback](#real-time-feedback)
+  - [Stopping Common Build Failures](#stopping-common-build-failures)
 
 ## Getting Started
 
@@ -41,9 +37,9 @@ Displays help info.
 
 Options:
 
-    -f, --enguardrc=FILE    Use enguard file (default: .enguardrc)
-    --verbose               Provide more feedback
-    -v, --version           Output Enguard's version
+    -f, --enguard-file=FILE    Use enguard file (default: .enguard.yml)
+    --verbose                  Provide more feedback
+    -v, --version              Output Enguard's version
 
 Commands:
 
@@ -70,7 +66,7 @@ enguard init
 git hooks for a project. This command should be run in each local development
 environment.
 
-> \*_Tip:_ Use one command to initialise your project for new developers. This is
+> _Tip:_ Use one command to initialise your project for new developers. This is
 > the natural home for `enguard init`
 
 ### Configuration
@@ -97,7 +93,7 @@ guards:
       - 'echo {{ info.diff }} | flake8 --diff'
       - 'bandit -r {{ info.affected }}'
       - 'mypy --incremental'
-      - run: >
+      - >
           xenon
             --max-absolute 'B'
             --max-modules 'A'
@@ -127,7 +123,7 @@ guards:
         pytest
             --cov-config='setup.cfg'
             --cov='enguard'
-            -m 'not slow'
+            -m 'rapid, slow'
 ```
 
 ### Simulating hooks
