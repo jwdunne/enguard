@@ -6,7 +6,7 @@ from tempfile import NamedTemporaryFile
 from enguard.experiments import list_staged_files
 
 
-@pytest.mark.fast
+@pytest.mark.integration
 def test_list_staged_files(repo: GitRepository):
     """Test list_staged_files returns only staged files."""
     with NamedTemporaryFile(dir=repo.path, delete=False) as staged:
@@ -14,7 +14,7 @@ def test_list_staged_files(repo: GitRepository):
         assert staged.name in list_staged_files(repo)
 
 
-@pytest.mark.fast
+@pytest.mark.integration
 def test_list_staged_files_is_empty(repo: GitRepository):
     """Test list_staged_Files returns empty list if nothing staged."""
     assert not list_staged_files(repo)
