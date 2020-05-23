@@ -2,7 +2,7 @@
 name: Experiment
 about: Write a PoC to get feel for the problem
 title: ''
-labels: project
+labels: experiment
 assignees: jwdunne
 
 ---
