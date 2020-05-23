@@ -2,8 +2,6 @@
 
 Build tight feedback loops. In minutes.
 
-TODO: Insert 5 minute setup gif
-
 ## Table of Contents <!-- omit in toc -->
 
 - [Getting Started](#getting-started)
