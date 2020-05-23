@@ -1,7 +1,7 @@
 ---
-name: Documentation
+name: 📄 Documentation
 about: A documentation enhancement/correction
-title: ''
+title: '📄 '
 labels: documentation
 assignees: jwdunne
 
