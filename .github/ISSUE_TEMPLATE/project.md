@@ -1,5 +1,5 @@
 ---
-name: Project
+name: 🚀 Project
 about: Plan a project
 title: ''
 labels: mti
