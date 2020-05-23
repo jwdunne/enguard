@@ -24,8 +24,19 @@ build-docs:
 	echo "Building docs"
 
 .PHONY: test
-test: build
-	docker run -t $(DOCKER_TAG) pytest
+test: test-unit test-experiments test-e2e
+
+.PHONY: test-unit
+test-unit: build
+	docker run -t $(DOCKER_TAG) pytest tests/unit
+
+.PHONY: test-experiments
+test-experiments: build
+	docker run -t $(DOCKER_TAG) pytest tests/experiments
+
+.PHONY: test-e2e
+test-e2e: build
+	docker run -t $(DOCKER_TAG) pytest tests/e2e
 
 .PHONY: check
 check: flake8 bandit xenon mypy yamllint
