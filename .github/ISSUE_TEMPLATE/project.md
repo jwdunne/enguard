@@ -1,7 +1,7 @@
 ---
 name: 🚀 Project
 about: Plan a project
-title: ''
+title: '🚀 '
 labels: mti
 assignees: jwdunne
 
