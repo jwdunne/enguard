@@ -7,8 +7,14 @@ assignees: jwdunne
 
 ---
 
-**What needs documenting**?
+**What do we need to document?**
 
-* What is the goal of the documentation?
-* Who is the expected audience?
-* How does this documentation solve their problems?
+
+**What is the goal of the documentation?**
+
+
+**Who is the expected audience?**
+
+
+**How does this documentation solve their problems?**
+
