@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-pytest --cov-config=setup.cfg --cov=enguard -m 'not slow'
+set -eu
+
+PYTHON_VERSIONS=(3.8 3.7 3.6)
+
+for version in ${PYTHON_VERSIONS[@]}; do
+    make test "PYTHON_VERSION = ${version}"
+done

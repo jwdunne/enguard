@@ -2,14 +2,8 @@
 
 set -eu
 
-# Python
-flake8 enguard
-bandit -r enguard
-mypy enguard
-xenon --max-absolute B --max-modules A --max-average A enguard
+PYTHON_VERSIONS=(3.8 3.7 3.6)
 
-# Docs
-yarn markdownlint '*.md'
-
-# Config
-yamllint .
+for version in ${PYTHON_VERSIONS[@]}; do
+    make check "PYTHON_VERSION = ${version}"
+done
