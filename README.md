@@ -36,6 +36,7 @@ Displays help info.
 Options:
 
     -f, --enguard-file=FILE    Use enguard file (default: .enguard.yml)
+    -d, --path=PATH            Make PATH the working directory
     --verbose                  Provide more feedback
     -v, --version              Output Enguard's version
 

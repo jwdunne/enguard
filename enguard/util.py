@@ -1,10 +1,12 @@
 """Useful utility functions."""
 
-import os
+from pathlib import Path
 import tempfile
 
 from git import Repo
 from pydriller import GitRepository
+from functools import reduce
+from typing import Callable, List, TypeVar
 
 
 def init_temp_repo() -> GitRepository:
@@ -14,6 +16,22 @@ def init_temp_repo() -> GitRepository:
     return GitRepository(dir)
 
 
-def get_absolute_repo_path(repo: GitRepository, path: str) -> str:
+def repo_path(repo: GitRepository) -> Path:
     """Convert a path relative to the repo and returns an absolute path."""
-    return os.path.join(repo.path, path)
+    return Path(repo.path)
+
+
+def identity(x):
+    return x
+
+
+def compose(f, g):
+    return lambda x: f(g(x))
+
+
+def complement(f):
+    return lambda x: not f(x)
+
+
+def prop(name: str):
+    return lambda obj: getattr(obj, name)

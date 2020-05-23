@@ -1,19 +1,24 @@
 """Console script for enguard."""
 import sys
+import os
 
 import click
-import enguard
+from enguard import enguard
 
 
 @click.group()
-def cli(args=None):
-    pass
+@click.option("--path", default=os.getcwd())
+@click.pass_context
+def cli(ctx, path):
+    ctx.ensure_object(dict)
+    ctx.obj["PATH"] = path
 
 
 @cli.command()
-def init(args=None):
+@click.pass_context
+def init(ctx, args=None):
     """Initialise enguard hooks and config file."""
-    enguard.enguard.init()
+    enguard.init(ctx.obj["PATH"])
     click.echo("Created default config file")
 
 

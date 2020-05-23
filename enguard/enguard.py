@@ -3,32 +3,14 @@
 import os
 
 import yaml
-from enguard.util import get_absolute_repo_path
+from enguard import config
+from enguard.util import repo_path
 from pydriller import GitRepository
-
-CONFIG_FILENAME = '.enguard.yml'
-
-DEFAULT_CONF = {
-    'hooks': {
-        'pre-commit': [
-            'echo "Add your pre-commit steps here."',
-            'echo "Affected files {{ files.affected }}"'
-        ],
-        'pre-push': [
-            'echo "Add your pre-push steps here."',
-            'echo "Affected files {{ files.affected }}"'
-        ],
-        'post-merge': [
-            'echo "Add your post-merge steps here."',
-            'echo "Affected files {{ files.affected }}"'
-        ],
-    }
-}
 
 
 def init(path=os.curdir):
     """Initialize enguard in a git repository."""
     repo = GitRepository(path)
 
-    with open(get_absolute_repo_path(repo, CONFIG_FILENAME), 'w+') as f:
-        yaml.safe_dump(DEFAULT_CONF, f)
+    with open(repo_path(repo) / config.CONF_PATH, "w+") as f:
+        yaml.safe_dump(config.DEFAULT_CONF, f)
