@@ -3,8 +3,9 @@
 from typing import List
 
 import git
-from enguard.util import repo_path
 from pydriller import GitRepository
+
+from enguard.util import repo_path
 
 ASSERTION = True
 

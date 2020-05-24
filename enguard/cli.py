@@ -1,8 +1,9 @@
 """Console script for enguard."""
-import sys
 import os
+import sys
 
 import click
+
 from enguard import enguard
 
 

@@ -4,13 +4,14 @@
 
 import pytest
 import yaml
-import os
 from click.testing import CliRunner
-from enguard.cli import cli
-from enguard.hooks import hooks_path, hooks_exist
-from enguard.config import DEFAULT_CONF, config_path
-from enguard.util import repo_path, complement
 from pydriller import GitRepository
+
+from enguard.cli import cli
+from enguard.config import DEFAULT_CONF, config_path
+from enguard.hooks import hooks_path
+from enguard.util import complement, repo_path
+from tests.util import dir_context, hooks_ok
 
 
 def conf_is_ok(conf):
@@ -19,14 +20,6 @@ def conf_is_ok(conf):
 
 def exit_is_ok(exit_code):
     return exit_code == 0
-
-
-def entries_to_hook_names(entries):
-    return {file.name for file in entries}
-
-
-def files_ok(entries):
-    return hooks_exist(entries_to_hook_names(entries))
 
 
 def cli_context(path, assertion) -> bool:
@@ -41,11 +34,6 @@ def yaml_context(path, assertion):
         assert assertion(config)
 
 
-def dir_context(path, assertion):
-    with os.scandir(path) as entries:
-        assert assertion(entries)
-
-
 @pytest.mark.acceptance
 def test_init_configures_env_from_scratch(repo: GitRepository):
     """
@@ -56,7 +44,7 @@ def test_init_configures_env_from_scratch(repo: GitRepository):
     path = repo_path(repo)
     cli_context(path, exit_is_ok)
     yaml_context(config_path(path), conf_is_ok)
-    dir_context(hooks_path(path), complement(files_ok))
+    dir_context(hooks_path(path), complement(hooks_ok))
 
     # TODO: default config must result in 'noop' for all enguard actions
     # TODO: git actions must invoke enguard

@@ -23,6 +23,14 @@ HOOKS = {
     "pre-push",
 }
 
+HOOK_SCRIPT = """
+#!/usr/bin/env bash
+
+# enguard start
+echo "Running enguard"
+# enguard end
+"""
+
 
 def hooks_path(base: Path) -> Path:
     return base / HOOKS_PATH

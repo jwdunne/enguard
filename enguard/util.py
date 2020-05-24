@@ -1,7 +1,7 @@
 """Useful utility functions."""
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 from git import Repo
 from pydriller import GitRepository
@@ -29,3 +29,7 @@ def compose(f, g):
 
 def complement(f):
     return lambda x: not f(x)
+
+
+def entry_names(entries):
+    return {file.name for file in entries}

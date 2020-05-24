@@ -3,9 +3,10 @@
 import os
 
 import yaml
+from pydriller import GitRepository
+
 from enguard import config
 from enguard.util import repo_path
-from pydriller import GitRepository
 
 
 def init(path=os.curdir):

@@ -86,6 +86,9 @@ check-local:
 test-local:
 	pytest
 
+.PHONY: local
+local: check-local test-local
+
 .PHONY: shell
 shell: build
 	docker run -it $(DOCKER_TAG) python
