@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Tests for `enguard` package."""
+"""Tests for `enguard init` command."""
 
 import pytest
 import yaml
@@ -11,15 +11,11 @@ from enguard.cli import cli
 from enguard.config import DEFAULT_CONF, config_path
 from enguard.hooks import hooks_path
 from enguard.util import complement, repo_path
-from tests.util import dir_context, hooks_ok
+from tests.util import dir_context, hooks_ok, exit_ok
 
 
-def conf_is_ok(conf):
+def conf_ok(conf):
     return conf == DEFAULT_CONF
-
-
-def exit_is_ok(exit_code):
-    return exit_code == 0
 
 
 def cli_context(path, assertion) -> bool:
@@ -42,8 +38,8 @@ def test_init_configures_env_from_scratch(repo: GitRepository):
     """
 
     path = repo_path(repo)
-    cli_context(path, exit_is_ok)
-    yaml_context(config_path(path), conf_is_ok)
+    cli_context(path, exit_ok)
+    yaml_context(config_path(path), conf_ok)
     dir_context(hooks_path(path), complement(hooks_ok))
 
     # TODO: default config must result in 'noop' for all enguard actions

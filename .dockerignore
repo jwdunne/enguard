@@ -14,3 +14,6 @@ __pycache__
 
 # Compiled Documentation
 docs/_build
+node_modules
+.mypy_cache
+.pytest_cache

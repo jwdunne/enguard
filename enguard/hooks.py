@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Set
 
@@ -23,11 +24,15 @@ HOOKS = {
     "pre-push",
 }
 
-HOOK_SCRIPT = """
+
+def hook_script(hook_name: str) -> str:
+    return f"""
 #!/usr/bin/env bash
 
+set -eu
+
 # enguard start
-echo "Running enguard"
+enguard run-hook {hook_name}
 # enguard end
 """
 
@@ -42,3 +47,10 @@ def hooks_exist(existing_hooks: Set[str]) -> bool:
 
 def missing_hooks(existing_hooks: Set[str]) -> Set[str]:
     return HOOKS - existing_hooks
+
+
+def install_hook(hook_name: str, base: Path):
+    path = hooks_path(base) / hook_name
+    with open(path, "w") as f:
+        f.write(hook_script(hook_name))
+        os.chmod(path, 0o600)

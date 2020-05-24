@@ -11,5 +11,8 @@ WORKDIR /src
 COPY requirements.txt /src/requirements.txt
 RUN pip install -r requirements.txt
 
+RUN git config --global user.email "test@jwdunne.test"
+RUN git config --global user.name "James W. Dunne"
+
 COPY . /src
-RUN pip install .
+RUN pip install -e .

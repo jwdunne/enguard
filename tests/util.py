@@ -23,3 +23,7 @@ def stage_tmp_file(repo: GitRepository):
     with NamedTemporaryFile(dir=repo.path, delete=False) as staged:
         repo.repo.index.add([staged.name])
         return staged.name
+
+
+def exit_ok(exit_code):
+    return exit_code == 0

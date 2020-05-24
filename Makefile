@@ -51,7 +51,7 @@ flake8: build
 
 .PHONY: bandit
 bandit: build
-	docker run -t --rm $(DOCKER_TAG) bandit -r .
+	docker run -t --rm $(DOCKER_TAG) bandit -r enguard
 
 .PHONY: mypy
 mypy: build
@@ -88,6 +88,14 @@ test-local:
 
 .PHONY: local
 local: check-local test-local
+
+.PHONY: black
+black:
+	black tests enguard
+
+.PHONY: sort-imports
+sort-imports:
+	isort **/*.py **/*.py
 
 .PHONY: shell
 shell: build

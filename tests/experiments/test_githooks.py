@@ -1,25 +1,29 @@
-import os
 import subprocess
+import pytest
 
 from pydriller import GitRepository
 
-from enguard.hooks import HOOK_SCRIPT, HOOKS, hooks_path
-from tests.util import dir_context, hooks_ok, stage_tmp_file
+from enguard.hooks import HOOKS, hooks_path, install_hook
+from tests.util import dir_context, hooks_ok, stage_tmp_file, exit_ok
 
 
+@pytest.mark.experiments
 def test_register_git_hooks(repo: GitRepository):
     path = hooks_path(repo.path)
 
     for hook in HOOKS:
-        with open(path / hook, "w+") as f:
-            f.write(HOOK_SCRIPT)
-            os.chmod(path / hook, 0o700)
+        install_hook(hook, repo.path)
 
     dir_context(path, hooks_ok)
 
     stage_tmp_file(repo)
 
     result = subprocess.run(
-        ["git", "commit", "-m", "test"], check=False, capture_output=True, cwd=repo.path
+        ["git", "commit", "-m", "test"],
+        check=True,
+        capture_output=True,
+        cwd=repo.path,
+        text=True,
     )
-    assert b"Running enguard" in result.stdout
+
+    assert exit_ok(result.returncode)
