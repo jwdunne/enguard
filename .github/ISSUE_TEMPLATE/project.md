@@ -1,14 +1,21 @@
 ---
-name: Project
+name: 🚀 Project
 about: Plan a project
-title: ''
-labels: project
+title: '🚀 '
+labels: mti
 assignees: jwdunne
 
 ---
 
+**Meta:**
+
+- [ ] Write project goal
+- [ ] Break down list of tasks
+- [ ] Create a list of tasks
+
 **What is the goal of the project**?
-A short piece of writing on the motivation for the project.
+
 
 **Tasks:**
-A checklist of tasks that complete the project.
+
+List all steps in the project:
