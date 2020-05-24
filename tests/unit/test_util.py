@@ -1,11 +1,9 @@
 """Tests project utility functions."""
 
 import os
-from pathlib import Path
-from unittest.mock import MagicMock
 
 import pytest
-from enguard.util import repo_path, init_temp_repo
+from enguard.util import init_temp_repo
 
 
 @pytest.mark.unit

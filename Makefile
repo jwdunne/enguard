@@ -47,15 +47,15 @@ check-docs:
 
 .PHONY: flake8
 flake8: build
-	docker run -t --rm $(DOCKER_TAG) flake8 enguard
+	docker run -t --rm $(DOCKER_TAG) flake8 .
 
 .PHONY: bandit
 bandit: build
-	docker run -t --rm $(DOCKER_TAG) bandit -r enguard
+	docker run -t --rm $(DOCKER_TAG) bandit -r .
 
 .PHONY: mypy
 mypy: build
-	docker run -t --rm $(DOCKER_TAG) mypy enguard
+	docker run -t --rm $(DOCKER_TAG) mypy .
 
 .PHONY: xenon
 xenon:
@@ -68,6 +68,23 @@ xenon:
 .PHONY: yamllint
 yamllint: build
 	yamllint .
+
+.PHONY: check-local
+check-local:
+	flake8 enguard && \
+	bandit -r enguard && \
+	mypy enguard && \
+	yarn markdownlint '*.md' && \
+	yamllint . && \
+	xenon \
+		--max-absolute B \
+		--max-modules A \
+		--max-average A \
+		enguard
+
+.PHONY: test-local
+test-local:
+	pytest
 
 .PHONY: shell
 shell: build

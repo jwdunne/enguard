@@ -5,7 +5,6 @@
 import pytest
 import yaml
 import os
-from typing import List
 from click.testing import CliRunner
 from enguard.cli import cli
 from enguard.hooks import hooks_path, hooks_exist
@@ -58,3 +57,6 @@ def test_init_configures_env_from_scratch(repo: GitRepository):
     cli_context(path, exit_is_ok)
     yaml_context(config_path(path), conf_is_ok)
     dir_context(hooks_path(path), complement(files_ok))
+
+    # TODO: default config must result in 'noop' for all enguard actions
+    # TODO: git actions must invoke enguard
