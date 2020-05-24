@@ -1,5 +1,5 @@
 from pathlib import Path
-from functools import partialmethod
+from typing import Set
 
 HOOKS_PATH = ".git/hooks"
 
@@ -28,9 +28,9 @@ def hooks_path(base: Path) -> Path:
     return base / HOOKS_PATH
 
 
-def hooks_exist(existing_hooks: set) -> bool:
+def hooks_exist(existing_hooks: Set[str]) -> bool:
     return HOOKS.issubset(existing_hooks)
 
 
-def missing_hooks(existing_hooks: set) -> bool:
+def missing_hooks(existing_hooks: Set[str]) -> Set[str]:
     return HOOKS - existing_hooks

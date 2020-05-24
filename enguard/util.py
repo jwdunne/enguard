@@ -5,8 +5,6 @@ import tempfile
 
 from git import Repo
 from pydriller import GitRepository
-from functools import reduce
-from typing import Callable, List, TypeVar
 
 
 def init_temp_repo() -> GitRepository:
@@ -31,7 +29,3 @@ def compose(f, g):
 
 def complement(f):
     return lambda x: not f(x)
-
-
-def prop(name: str):
-    return lambda obj: getattr(obj, name)
