@@ -6,10 +6,23 @@ Types:
 data Config = Config {
     hooks :: [Hook],
     watchers :: [Watcher],
-    hooks :: [Hook]
+    guards :: [Guard]
 }
 
-data Hook = Hook GitHook
+data Hook = Hook {
+    name :: GitHook,
+    patterns :: [TaskPattern]
+}
+
+data GitHook = PreCommit | PrePush | PostMerge | ...
+
+data Watcher = Watcher [TaskPattern]
+
+data Guard = Guard {
+    name :: String,
+    glob :: Glob,
+    run  :: [Cmd]
+}
 """
 
 from pathlib import Path
