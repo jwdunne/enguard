@@ -1,5 +1,7 @@
 # Enguard <!-- omit in toc -->
 
+[![Build Status](https://travis-ci.com/jwdunne/enguard.svg?branch=master)](https://travis-ci.com/jwdunne/enguard)
+
 Build tight feedback loops. In minutes.
 
 ## Table of Contents <!-- omit in toc -->
