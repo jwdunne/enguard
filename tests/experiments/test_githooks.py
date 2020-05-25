@@ -1,19 +1,20 @@
+import os
 import subprocess
-import pytest
 
-from pydriller import GitRepository
+import pytest
+from git import Repo
 
 from enguard.hooks import HOOKS, hooks_path, install_hook
-from tests.util import hooks_ok, stage_tmp_file, exit_ok
-import os
+from enguard.util import repo_path
+from tests.util import hooks_ok, stage_tmp_file
 
 
 @pytest.mark.experiments
-def test_register_git_hooks(repo: GitRepository):
-    path = hooks_path(repo.path)
+def test_register_git_hooks(repo: Repo):
+    path = hooks_path(repo_path(repo))
 
     for hook in HOOKS:
-        install_hook(hook, repo.path)
+        install_hook(hook, repo_path(repo))
 
     with os.scandir(path) as entries:
         assert hooks_ok(entries)
@@ -24,8 +25,8 @@ def test_register_git_hooks(repo: GitRepository):
         ["git", "commit", "-m", "test"],
         check=True,
         capture_output=True,
-        cwd=repo.path,
+        cwd=repo_path(repo),
         text=True,
     )
 
-    assert exit_ok(result.returncode)
+    assert result.returncode == 0

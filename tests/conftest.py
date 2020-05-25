@@ -1,7 +1,7 @@
 """Shared test fixtures."""
 import pytest
 
-from enguard.util import init_temp_repo
+from tests.util import init_temp_repo
 
 
 @pytest.fixture

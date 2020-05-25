@@ -1,22 +1,13 @@
 """Useful utility functions."""
 
-import tempfile
 from pathlib import Path
 
 from git import Repo
-from pydriller import GitRepository
 
 
-def init_temp_repo() -> GitRepository:
-    """Init a temporary git repo."""
-    dir = tempfile.mkdtemp()
-    Repo.init(dir)
-    return GitRepository(dir)
-
-
-def repo_path(repo: GitRepository) -> Path:
+def repo_path(repo: Repo) -> Path:
     """Convert a path relative to the repo and returns an absolute path."""
-    return Path(repo.path)
+    return Path(repo.working_dir)
 
 
 def identity(x):

@@ -1,23 +1,23 @@
 """Tests project utility functions."""
 
 import os
-
-import pytest
-
-from enguard.util import init_temp_repo
-from hypothesis import given
-import hypothesis.strategies as st
-from operator import add, mul
 from functools import partial
+from operator import add, mul
+
+import hypothesis.strategies as st
+import pytest
+from hypothesis import given
+
 from enguard.util import complement, compose, const
+from tests.util import init_temp_repo
 
 
 @pytest.mark.unit
 def test_init_temp_repo_can_be_closed():
     """Test that init_temp_repo cleans up."""
     repo = init_temp_repo()
-    assert os.path.isdir(repo.path)
-    repo.repo.close()
+    assert os.path.isdir(repo.working_dir)
+    repo.close()
 
 
 @given(st.integers(), st.integers(), st.integers())

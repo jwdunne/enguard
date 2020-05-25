@@ -2,8 +2,9 @@
 
 import pytest
 from click.testing import CliRunner
-from tests.util import exit_ok
+
 from enguard.cli import run_hook
+from tests.util import exit_ok
 
 
 @pytest.mark.acceptance
