@@ -2,16 +2,17 @@
 
 import os
 
-import yaml
 from pydriller import GitRepository
 
-from enguard import config
-from enguard.util import repo_path
+from enguard.io import FileIO
+from enguard.config import init_config
+from enguard.hooks import install_hooks
 
 
 def init(path=os.curdir):
     """Initialize enguard in a git repository."""
     repo = GitRepository(path)
 
-    with open(repo_path(repo) / config.CONF_PATH, "w+") as f:
-        yaml.safe_dump(config.DEFAULT_CONF, f)
+    io = FileIO()
+    init_config(repo.path, io)
+    install_hooks(repo.path, io)

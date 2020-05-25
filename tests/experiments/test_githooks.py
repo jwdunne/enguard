@@ -4,7 +4,8 @@ import pytest
 from pydriller import GitRepository
 
 from enguard.hooks import HOOKS, hooks_path, install_hook
-from tests.util import dir_context, hooks_ok, stage_tmp_file, exit_ok
+from tests.util import hooks_ok, stage_tmp_file, exit_ok
+import os
 
 
 @pytest.mark.experiments
@@ -14,7 +15,8 @@ def test_register_git_hooks(repo: GitRepository):
     for hook in HOOKS:
         install_hook(hook, repo.path)
 
-    dir_context(path, hooks_ok)
+    with os.scandir(path) as entries:
+        assert hooks_ok(entries)
 
     stage_tmp_file(repo)
 

@@ -9,12 +9,6 @@ from enguard.util import entry_names
 # TODO: Reconsider naming of these e.g for_all_files_in
 
 
-def dir_context(path, assertion):
-    """Asserts within the context of a directory tree."""
-    with os.scandir(path) as entries:
-        assert assertion(entries)
-
-
 def hooks_ok(entries):
     return hooks_exist(entry_names(entries))
 

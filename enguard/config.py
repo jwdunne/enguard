@@ -26,6 +26,7 @@ data Guard = Guard {
 """
 
 from pathlib import Path
+import yaml
 
 CONF_PATH = ".enguard.yml"
 
@@ -47,5 +48,27 @@ DEFAULT_CONF = {
 }
 
 
+class Config:
+    def __init__(self, base_path, name=CONF_PATH):
+        self.base = base_path
+        self.name = CONF_PATH
+
+    @property
+    def path(self):
+        return self.base / self.name
+
+    @property
+    def to_yaml(self):
+        return yaml.safe_dump(DEFAULT_CONF)
+
+    def init(self, io):
+        if not io.exists(self.path):
+            io.write(self.path, self.to_yaml)
+
+
 def config_path(base: Path) -> Path:
     return base / CONF_PATH
+
+
+def init_config(base: Path, io):
+    return Config(base).init(io)

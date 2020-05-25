@@ -5,6 +5,8 @@ from pathlib import Path
 
 from git import Repo
 from pydriller import GitRepository
+from more_itertools.recipes import flatten
+from functools import reduce
 
 
 def init_temp_repo() -> GitRepository:
@@ -33,3 +35,7 @@ def complement(f):
 
 def entry_names(entries):
     return {file.name for file in entries}
+
+
+def const(x):
+    return lambda _: x
