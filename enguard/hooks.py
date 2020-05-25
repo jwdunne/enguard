@@ -6,7 +6,6 @@ Git hooks module.
 import os
 from pathlib import Path
 from typing import Set
-from enguard.io import composeIO
 
 HOOKS_PATH = ".git/hooks"
 
@@ -49,11 +48,11 @@ class Hook:
             io.write(self.path, self.script, 0o600)
 
 
-def hooks(path):
+def hooks(path: Path):
     return {Hook(hook, path) for hook in HOOKS}
 
 
-def install_hooks(path, io):
+def install_hooks(path: Path, io):
     for hook in hooks(path):
         hook.install(io)
 

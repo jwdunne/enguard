@@ -5,8 +5,6 @@ from pathlib import Path
 
 from git import Repo
 from pydriller import GitRepository
-from more_itertools.recipes import flatten
-from functools import reduce
 
 
 def init_temp_repo() -> GitRepository:
