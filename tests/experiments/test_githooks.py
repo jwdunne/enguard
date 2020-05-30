@@ -21,12 +21,13 @@ def test_register_git_hooks(repo: Repo):
 
     stage_tmp_file(repo)
 
+    # Not using capture_output due to 3.6 support
     result = subprocess.run(
         ["git", "commit", "-m", "test"],
         check=True,
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
         cwd=repo_path(repo),
-        text=True,
     )
 
     assert result.returncode == 0
