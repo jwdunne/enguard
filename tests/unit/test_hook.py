@@ -1,6 +1,7 @@
+from pathlib import Path
+
 import pytest
 
-from pathlib import Path
 from enguard.hooks import Hook, hook_script, install_hooks
 from enguard.io import MemIO
 

@@ -2,6 +2,8 @@
 
 """Tests for `enguard init` command."""
 
+import os
+
 import pytest
 import yaml
 from click.testing import CliRunner
@@ -12,7 +14,6 @@ from enguard.config import DEFAULT_CONF, config_path
 from enguard.hooks import hooks_path
 from enguard.util import repo_path
 from tests.util import hooks_ok
-import os
 
 
 @pytest.mark.acceptance

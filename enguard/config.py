@@ -26,6 +26,7 @@ data Guard = Guard {
 """
 
 from pathlib import Path
+
 import yaml
 
 CONF_PATH = ".enguard.yml"

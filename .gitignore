@@ -101,6 +101,9 @@ ENV/
 # mypy
 .mypy_cache/
 
+# Profiling
+prof
+
 # IDE settings
 .vscode/
 node_modules
